@@ -1,12 +1,79 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NeaPark</title>
+  <title>NeaPark - Réservation</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      text-align: center;
+      color: white;
+    }
+
+    .box {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      margin: 100px auto;
+      width: 300px;
+      border-radius: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: red;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #message {
+      margin-top: 15px;
+      color: yellow;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to NeaPark</h1>
-  <p>Online parking reservations for Basel-Mulhouse-Freiburg Airport.</p>
+
+  <div class="box">
+    <h2>Départ</h2>
+    <input type="date" id="depart">
+    <h2>Retour</h2>
+    <input type="date" id="retour">
+    <button onclick="checkDisponibilite()">Réservez votre parking</button>
+    <div id="message"></div>
+  </div>
+
+  <script>
+    function checkDisponibilite() {
+      const depart = document.getElementById("depart").value;
+      const retour = document.getElementById("retour").value;
+
+      const datesCompletes = [
+        { debut: '2025-05-30', fin: '2025-06-01' }
+      ];
+
+      let complet = datesCompletes.some(d =>
+        depart >= d.debut && retour <= d.fin
+      );
+
+      const messageDiv = document.getElementById("message");
+      if (complet) {
+        messageDiv.innerText = "Désolé, notre parking affiche complet aux dates sélectionnées";
+      } else {
+        messageDiv.innerText = "Place disponible ! Vous pouvez réserver.";
+      }
+    }
+  </script>
+
 </body>
 </html>
